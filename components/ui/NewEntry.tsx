@@ -3,13 +3,14 @@ import { Box, Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { EntriesContext } from "@/context/entries";
+import { UIContext } from "@/context/ui";
 
 export const NewEntry = () => {
-  const [isAdding, setIsAdding] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [touched, setTouched] = useState(false);
 
   const { addNewEntry } = useContext(EntriesContext);
+  const { isAddingEntry, setIsAdding } = useContext(UIContext);
 
   const onTextFieldChanges = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,7 +30,7 @@ export const NewEntry = () => {
 
   return (
     <Box sx={{ marginBottom: 2, paddingX: 1 }}>
-      {isAdding ? (
+      {isAddingEntry ? (
         <>
           <TextField
             fullWidth
