@@ -24,6 +24,8 @@ export default function handler(
       return updateEntry(req, res);
     case "GET":
       return getEntry(req, res);
+    case "DELETE":
+      return deleteEntry(req, res);
     default:
       return res.status(400).json({ message: "Bad Request" });
   }
@@ -73,4 +75,28 @@ const getEntry = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   return res.status(200).json(entry);
+};
+
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.query;
+
+  await db.connect();
+  const entryToDelete = await Entry.findById(id);
+
+  if (!entryToDelete) {
+    await db.disconnect();
+    return res.status(400).json({ message: "There is no entry with that id" });
+  }
+
+  try {
+    await Entry.deleteOne({
+      _id: id,
+    });
+    await db.disconnect();
+    res.status(200).json({ message: "Deleted Entry" });
+  } catch (error) {
+    console.log(error);
+    await db.disconnect();
+    res.status(400).json({ message: "Bad Request" });
+  }
 };

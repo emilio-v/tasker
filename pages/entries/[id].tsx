@@ -30,7 +30,7 @@ interface EntryPageProps {
 }
 
 const EntryPage: FC<EntryPageProps> = ({ entry }) => {
-  const { updateEntry } = useContext(EntriesContext);
+  const { updateEntry, deleteEntry } = useContext(EntriesContext);
   const [inputValue, setInputValue] = useState(entry.description);
   const [status, setStatus] = useState<EntryStatus>(entry.status);
   const [touched, setTouched] = useState(false);
@@ -121,6 +121,9 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
           bottom: 30,
           right: 30,
           backgroundColor: "error.dark",
+        }}
+        onClick={() => {
+          deleteEntry(entry);
         }}
       >
         <DeleteOutlineOutlinedIcon />
