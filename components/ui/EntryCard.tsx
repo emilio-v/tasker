@@ -1,4 +1,5 @@
 import { DragEvent, FC, useContext } from "react";
+import { useRouter } from "next/router";
 import { Entry } from "@/interfaces";
 import {
   Card,
@@ -16,6 +17,7 @@ interface EntryCardProps {
 export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
   const { startDragging, endDragging } = useContext(UIContext);
   const { description } = entry;
+  const router = useRouter();
 
   const onDragStart = (event: DragEvent) => {
     event.dataTransfer.setData("text", entry._id);
@@ -28,6 +30,9 @@ export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
 
   return (
     <Card
+      onClick={() => {
+        router.push(`/entries/${entry._id}`);
+      }}
       sx={{ marginBottom: 1 }}
       // Events
       draggable
