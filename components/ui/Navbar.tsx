@@ -10,9 +10,6 @@ export const Navbar = () => {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton onClick={openSideMenu}>
-          <MenuOutlinedIcon />
-        </IconButton>
         <NextLink
           href="/"
           style={{

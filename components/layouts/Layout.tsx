@@ -17,7 +17,6 @@ export const Layout: FC<LayoutProps> = ({ title = "Tasker App", children }) => {
       </Head>
 
       <Navbar />
-      <Sidebar />
 
       <Box sx={{ padding: "10px 20px" }}>{children}</Box>
     </Box>
