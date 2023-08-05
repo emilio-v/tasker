@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { UIContext } from "@/context/ui";
+import { dateFunctions } from "@/utils";
 
 interface EntryCardProps {
   entry: Entry;
@@ -16,7 +17,7 @@ interface EntryCardProps {
 
 export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
   const { startDragging, endDragging } = useContext(UIContext);
-  const { description } = entry;
+  const { description, createdAt } = entry;
   const router = useRouter();
 
   const onDragStart = (event: DragEvent) => {
@@ -47,7 +48,9 @@ export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
         <CardActions
           sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}
         >
-          <Typography variant="body2">30 min ago</Typography>
+          <Typography variant="body2">
+            {dateFunctions.getFormatDistancceToNow(createdAt)}
+          </Typography>
         </CardActions>
       </CardActionArea>
     </Card>
