@@ -34,7 +34,7 @@ export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
       onClick={() => {
         router.push(`/entries/${entry._id}`);
       }}
-      sx={{ marginBottom: 1 }}
+      sx={{ borderRadius: "10px", marginBottom: 1 }}
       // Events
       draggable
       onDragStart={onDragStart}
@@ -42,13 +42,15 @@ export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
     >
       <CardActionArea>
         <CardContent>
-          <Typography sx={{ whiteSpace: "pre-line" }}>{description}</Typography>
+          <Typography sx={{ whiteSpace: "pre-line" }} fontSize={16}>
+            {description}
+          </Typography>
         </CardContent>
 
         <CardActions
           sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}
         >
-          <Typography variant="body2">
+          <Typography variant="body2" fontSize={12}>
             {dateFunctions.getFormatDistancceToNow(createdAt)}
           </Typography>
         </CardActions>

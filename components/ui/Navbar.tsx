@@ -17,7 +17,9 @@ export const Navbar = () => {
             textDecoration: "none",
           }}
         >
-          <Typography variant="h6">Tasker</Typography>
+          <Typography variant="h6" fontSize={25} fontWeight={700}>
+            Tasker
+          </Typography>
         </NextLink>
       </Toolbar>
     </AppBar>
