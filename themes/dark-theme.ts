@@ -6,10 +6,13 @@ export const darkTheme = createTheme({
     mode: "dark",
     background: {
       default: "#060812",
+      paper: "#121629",
     },
-    // primary: {
-    //   main: "#4A148C",
-    // },
+    primary: {
+      // main: "#fffffe",
+      // main: "#b8c1ec",
+      main: "#eebbc3",
+    },
     secondary: {
       main: "#19857B",
     },
@@ -24,6 +27,7 @@ export const darkTheme = createTheme({
   typography: {
     allVariants: {
       fontFamily: "Nunito",
+      lineHeight: "normal",
     },
   },
 

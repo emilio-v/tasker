@@ -123,7 +123,11 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
           position: "fixed",
           bottom: 30,
           right: 30,
-          backgroundColor: "error.dark",
+          backgroundColor: "primary.main",
+          color: "#121629",
+          ":hover": {
+            color: "white",
+          },
         }}
         onClick={() => {
           deleteEntry(entry);
