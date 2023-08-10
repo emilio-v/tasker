@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { EntryStatus } from "@/interfaces";
 import {
   Box,
@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { title } from "process";
+import { EntriesContext } from "@/context/entries";
 
 interface AddNewEntryProps {
   openModal: boolean;
@@ -44,11 +45,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 const AddNewEntry = ({ openModal, handleClose }: AddNewEntryProps) => {
+  const { addNewEntry } = useContext(EntriesContext);
   const [inputTitle, setInputTitle] = useState("");
   const [inputDescription, setInputDescription] = useState("");
-  // const [titleError, setTitleError] = useState('')
-  // const [descriptionError, setDescriptionError] = useState('')
   const [status, setStatus] = useState<EntryStatus>("pending");
+  const [touched, setTouched] = useState(false);
 
   const onTitleChanged = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,25 +67,38 @@ const AddNewEntry = ({ openModal, handleClose }: AddNewEntryProps) => {
     setStatus(event.target.value as EntryStatus);
   };
 
-  // const onSave = () => {
+  const onClose = () => {
+    setTouched(false);
+    handleClose();
+  };
 
-  // }
+  const onSave = () => {
+    if (!inputTitle.trim()) return;
+
+    addNewEntry(inputTitle, inputDescription, status);
+
+    setInputTitle("");
+    setTouched(false);
+    setInputDescription("");
+    setStatus("pending");
+    onClose();
+  };
 
   return (
-    <Modal open={openModal} onClose={handleClose}>
+    <Modal open={openModal} onClose={onClose}>
       <Fade in={openModal}>
         <StyledBox>
           <TextField
             sx={{ marginTop: 2, marginBottom: 1 }}
             fullWidth
             placeholder="Title"
-            autoFocus
             multiline
             label="Title"
             value={inputTitle}
             onChange={onTitleChanged}
-            // helperText={isNotValid && "Enter a value"}
-            // error={isNotValid}
+            helperText={!inputTitle.length && touched && "Enter a title"}
+            error={!inputTitle.length && touched}
+            onBlur={() => setTouched(true)}
           />
           <TextField
             sx={{ marginTop: 2, marginBottom: 1 }}
@@ -95,8 +109,6 @@ const AddNewEntry = ({ openModal, handleClose }: AddNewEntryProps) => {
             label="Description"
             value={inputDescription}
             onChange={onDescriptionChanged}
-            // helperText={isNotValid && "Enter a value"}
-            // error={isNotValid}
           />
           <FormControl>
             <FormLabel>State</FormLabel>
@@ -119,8 +131,8 @@ const AddNewEntry = ({ openModal, handleClose }: AddNewEntryProps) => {
               fontWeight: 700,
               marginTop: "10px",
             }}
-            // onClick={onSave}
-            // disabled={!inputValue}
+            onClick={onSave}
+            disabled={!inputTitle}
           >
             Save
           </Button>
