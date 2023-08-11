@@ -39,10 +39,9 @@ export const EntryList: FC<EntryListProps> = ({ status }) => {
     >
       <Paper
         sx={{
-          height: "calc(100vh - 180px)",
           overflowY: "auto",
-          backgroundColor: "transparent",
           padding: "0px 8px",
+          borderRadius: 0,
         }}
       >
         <List sx={{ opacity: isDragging ? 0.2 : 1, transition: "all 0.3s" }}>

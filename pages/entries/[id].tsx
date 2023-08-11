@@ -32,7 +32,10 @@ interface EntryPageProps {
 
 const EntryPage: FC<EntryPageProps> = ({ entry }) => {
   const { updateEntry, deleteEntry } = useContext(EntriesContext);
-  const [inputValue, setInputValue] = useState(entry.description);
+  const [inputValue, setInputValue] = useState(entry.title);
+  const [inputDescriptionValue, setInputDescriptionValue] = useState(
+    entry.description
+  );
   const [status, setStatus] = useState<EntryStatus>(entry.status);
   const [touched, setTouched] = useState(false);
 
@@ -47,6 +50,12 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
     setInputValue(event.target.value);
   };
 
+  const onDescriptionChanged = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInputDescriptionValue(event.target.value);
+  };
+
   const onStatusChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setStatus(event.target.value as EntryStatus);
   };
@@ -57,7 +66,8 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
     updateEntry(
       {
         ...entry,
-        description: inputValue,
+        title: inputValue,
+        description: inputDescriptionValue,
         status,
       },
       true
@@ -70,24 +80,39 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
         <Grid item xs={12} sm={8} md={6}>
           <Card>
             <CardHeader
-              title={`Entry: ${inputValue}`}
+              title={`${inputValue}`}
               subheader={`Created ${dateFunctions.getFormatDistancceToNow(
                 entry.createdAt
               )}`}
+              subheaderTypographyProps={{
+                textAlign: "end",
+                marginTop: "10px",
+                fontSize: "0.8rem",
+              }}
             />
             <CardContent>
               <TextField
                 sx={{ marginTop: 2, marginBottom: 1 }}
                 fullWidth
-                placeholder="New entry"
+                placeholder="Title"
                 autoFocus
                 multiline
-                label="New entry"
+                label="Title"
                 value={inputValue}
                 onBlur={() => setTouched(true)}
                 onChange={onInputValueChanged}
                 helperText={isNotValid && "Enter a value"}
                 error={isNotValid}
+              />
+              <TextField
+                sx={{ marginTop: 2, marginBottom: 1 }}
+                fullWidth
+                placeholder="Description"
+                autoFocus
+                multiline
+                label="Description"
+                value={inputDescriptionValue}
+                onChange={onDescriptionChanged}
               />
               <FormControl>
                 <FormLabel>State</FormLabel>
@@ -123,7 +148,11 @@ const EntryPage: FC<EntryPageProps> = ({ entry }) => {
           position: "fixed",
           bottom: 30,
           right: 30,
-          backgroundColor: "error.dark",
+          backgroundColor: "primary.main",
+          color: "#121629",
+          ":hover": {
+            color: "white",
+          },
         }}
         onClick={() => {
           deleteEntry(entry);

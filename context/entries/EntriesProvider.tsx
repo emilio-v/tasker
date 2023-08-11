@@ -23,20 +23,27 @@ export const EntriesProvider: FC<EntriesProviderProps> = ({ children }) => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const addNewEntry = async (description: string) => {
+  const addNewEntry = async (
+    title: string,
+    description: string,
+    status: Entry["status"]
+  ) => {
     const { data } = await entriesApi.post<Entry>("/entries", {
+      title,
       description,
+      status,
     });
 
     dispatch({ type: "Entry - Add-Entry", payload: data });
   };
 
   const updateEntry = async (
-    { _id, description, status }: Entry,
+    { _id, title, description, status }: Entry,
     showSnackbar = false
   ) => {
     try {
       const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, {
+        title,
         description,
         status,
       });

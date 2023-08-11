@@ -4,17 +4,30 @@ import { grey, red } from "@mui/material/colors";
 export const darkTheme = createTheme({
   palette: {
     mode: "dark",
-    // background: {
-    //   default: grey[300],
-    // },
-    // primary: {
-    //   main: "#4A148C",
-    // },
+    background: {
+      default: "#060812",
+      paper: "#121629",
+    },
+    primary: {
+      // main: "#fffffe",
+      // main: "#b8c1ec",
+      main: "#eebbc3",
+    },
     secondary: {
       main: "#19857B",
     },
     error: {
       main: red.A400,
+    },
+    text: {
+      primary: "#fffffe",
+    },
+  },
+
+  typography: {
+    allVariants: {
+      fontFamily: "Nunito",
+      lineHeight: "normal",
     },
   },
 
@@ -25,7 +38,36 @@ export const darkTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          backgroundColor: "#4A148C",
+          backgroundColor: "#060812",
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#2e3868",
+          backgroundImage: "none",
+        },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#2e3868",
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#2e3868",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#121629",
         },
       },
     },
