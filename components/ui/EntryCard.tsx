@@ -17,7 +17,7 @@ interface EntryCardProps {
 
 export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
   const { startDragging, endDragging } = useContext(UIContext);
-  const { description, createdAt } = entry;
+  const { title, createdAt } = entry;
   const router = useRouter();
 
   const onDragStart = (event: DragEvent) => {
@@ -43,7 +43,7 @@ export const EntryCard: FC<EntryCardProps> = ({ entry }) => {
       <CardActionArea>
         <CardContent>
           <Typography sx={{ whiteSpace: "pre-line" }} fontSize={16}>
-            {description}
+            {title}
           </Typography>
         </CardContent>
 
